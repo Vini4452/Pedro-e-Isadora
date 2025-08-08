@@ -1,0 +1,231 @@
+
+/* style.css - Pedro & Isadora site */
+:root{
+  --bg-overlay: rgba(0,0,0,0.35);
+  --accent: #ff80b3;
+  --soft: #ffdfe9;
+  --card: rgba(255,255,255,0.04);
+}
+
+*{box-sizing: border-box;}
+
+body{
+  margin:0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #fff;
+  background-image: url('img/background-hearts.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* overlay to darken for readability */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background: var(--bg-overlay);
+  z-index:0;
+}
+
+.container{
+  position:relative;
+  z-index:2;
+  max-width:900px;
+  margin:0 auto;
+  padding:22px;
+}
+
+/* music blocks */
+.music{
+  max-width:680px;
+  margin:18px auto;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding:12px;
+  border-radius:12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+
+/* small italic caption under music */
+.music .caption{
+  color: var(--soft);
+  font-style: italic;
+  font-size:14px;
+  margin-top:8px;
+  text-align:center;
+}
+
+/* carousel placeholder */
+.carousel{
+  width:100%;
+  height:260px;
+  border-radius:14px;
+  border:2px dashed rgba(255,255,255,0.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color: rgba(255,255,255,0.75);
+  margin:18px auto;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+}
+
+/* timer grid - mobile first: 2 cols x 3 rows */
+.timer{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:12px;
+  max-width:420px;
+  margin:18px auto;
+  padding:6px;
+}
+
+.card{
+  background: var(--card);
+  border-radius:12px;
+  padding:10px 12px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.45), inset 0 -2px 6px rgba(255,255,255,0.02);
+}
+
+.card .num{
+  font-size:1.6rem;
+  font-weight:600;
+  color: var(--accent);
+}
+
+.card .label{
+  font-size:0.88rem;
+  color: #e6e6e6;
+  margin-top:6px;
+}
+
+/* larger screens: show 6 columns */
+@media(min-width: 760px){
+  .timer{ grid-template-columns: repeat(6, 1fr); max-width:860px;}
+}
+
+/* romantic text */
+.romantic{
+  max-width:760px;
+  margin:20px auto;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding:16px;
+  border-radius:12px;
+  color: #ffeef6;
+  line-height:1.55;
+  font-size:1rem;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* final phrase */
+.final{
+  text-align:center;
+  margin-top:14px;
+  font-weight:700;
+  color: var(--accent);
+  font-size:1.1rem;
+}
+
+/* button and heart effects */
+.actions{ text-align:center; margin:20px 0;}
+.love-btn{
+  background: linear-gradient(180deg, #ff8db8, #ff5fa0);
+  border:none;
+  color:white;
+  padding:12px 22px;
+  border-radius:30px;
+  font-size:1rem;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(255,95,160,0.2);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.love-btn:active{ transform: scale(.98); }
+.love-btn:hover{ transform: translateY(-4px); box-shadow: 0 16px 30px rgba(255,95,160,0.22); }
+
+.flying-heart{
+  position:fixed;
+  z-index: 9999;
+  pointer-events:none;
+  will-change: transform, opacity;
+  font-size: 26px;
+  animation: rise 1800ms cubic-bezier(.2,-0.3,.2,1);
+}
+@keyframes rise{
+  0%{ transform: translateY(0) scale(0.9); opacity:1; }
+  100%{ transform: translateY(-260px) translateX(30px) scale(1.4); opacity:0; }
+}
+
+/* small caption under music */
+.caption-light{ color: rgba(255,230,240,0.9); font-size:13px; text-align:center; margin-top:8px; }
+
+/* ======= Estilos do carousel ======= */
+.carousel { 
+  position: relative;
+  max-width: 720px;
+  margin: 18px auto;
+  width: 94%;
+  overflow: visible;
+  z-index: 3;
+}
+
+/* viewport fixa para esconder overflow */
+.carousel-viewport {
+  overflow: hidden;
+  border-radius: 14px;
+  width: 100%;
+  /* altura responsiva: 56vw (mobile) limitada por max-height */
+  height: 56vw;
+  max-height: 420px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+}
+
+/* track como flex row */
+.carousel-track {
+  display: flex;
+  transition: transform 600ms cubic-bezier(.2,.9,.2,1);
+  will-change: transform;
+  height: 100%;
+}
+
+/* cada imagem ocupa 100% do viewport */
+.carousel-track img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* mantém o crop elegante */
+  flex-shrink: 0;
+  display: block;
+}
+
+/* botões */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: rgba(0,0,0,0.45);
+  color: white;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  transition: transform .15s ease, background .15s;
+  z-index: 5;
+}
+.carousel-btn:hover { transform: translateY(-50%) scale(1.05); background: rgba(0,0,0,0.6); }
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+
+/* mobile-first: 2 col x 3 rows timer already implemented elsewhere */
+@media(min-width: 760px){
+  .carousel-viewport { height: 42vw; max-height: 520px; }
+}
+
